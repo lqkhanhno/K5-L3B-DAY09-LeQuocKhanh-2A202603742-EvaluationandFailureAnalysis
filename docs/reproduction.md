@@ -37,7 +37,12 @@ python -m lab9.evalset --build --check
 python -m lab9.evalset --v2 --build
 ```
 
-`.gitattributes` giữ LF cho eval set để SHA không đổi giữa Windows và Linux.
+`evalset.build/build_v2` ghi `newline="\n"`, cùng `.gitattributes` giữ LF cho JSONL.
+Chỉ dùng `.gitattributes` chưa đủ: Python trên Windows mặc định ghi CRLF trước khi Git đổi
+thành LF, khiến SHA lúc build khác SHA sau checkout. Test
+`test_evalset_rebuild_matches_committed_bytes_on_every_platform` bắt lỗi này.
+Baseline đã được sinh lại trên LF: v1 `1f7a07daed29`, v2 `21cd831d343d`; không thay item,
+nhãn hoặc ngưỡng. Hash cũ CRLF trong PR #1 không còn là baseline hiện hành.
 Không chạy song song các eval trên cùng thư mục vì chúng ghi chung `traces/`.
 
 ## Phạm vi kiểm chứng

@@ -8,8 +8,8 @@ synthetic, MockLLM + SQLite, không người dùng/thanh toán thật. Quy trìn
 
 | Bộ | Run baseline | SHA eval set | Quy mô | Spec |
 |---|---|---|---|---|
-| v1 | `E-swarm-20261118-0ffb` | `0ffbf8aa4283` | 14 item × 5 seed = 70 trial | 1.1 |
-| v2 | `E-swarm-20261118-602d` | `602db7626803` | 28 item × 5 seed = 140 trial | 2.0 |
+| v1 | `E-swarm-20261118-1f7a` | `1f7a07daed29` | 14 item × 5 seed = 70 trial | 1.1 |
+| v2 | `E-swarm-20261118-21cd` | `21cd831d343d` | 28 item × 5 seed = 140 trial | 2.0 |
 
 Code/grader triển khai: commit `f4c1ec269ebe629fcba2ea66c889906cd031c11f`; commit chạy lại
 bằng chứng ở `analysis_evidence.json.code_commit`. Seeds 11/22/33/44/55; Python 3.12.7,
@@ -21,7 +21,7 @@ tách khỏi JSONL. Tags và slices không lấy từ output agent. Cả hai `ev
 
 Nguồn: `baseline_v1.json`, `eval_fixed.json`, `eval_seeded_regression.json` trong
 [`src/reports`](../src/reports). Run hai variant lần lượt là
-`E-fixed-20261118-0ffb`, `E-seeded_regression-20261118-0ffb`.
+`E-fixed-20261118-1f7a`, `E-seeded_regression-20261118-1f7a`.
 
 | Metric | Ngưỡng v1 | Blocking | swarm | fixed | seeded_regression |
 |---|---|---|---:|---:|---:|
