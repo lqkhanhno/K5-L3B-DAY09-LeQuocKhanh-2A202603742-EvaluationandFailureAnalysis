@@ -4,8 +4,8 @@
 - Mã gốc Day 8: [VinUni-AI20k/K5-Day8-From-Workflows-to-Agents](https://github.com/VinUni-AI20k/K5-Day8-From-Workflows-to-Agents/tree/034c6c421c198dae67a9211d15e2587d5a378972), commit `034c6c421c198dae67a9211d15e2587d5a378972`.
 - Chỉ sao chép `src/`; không dùng ba shape của bài nhóm. Cây Git `src/lab8/` có SHA
   `3c305719d3af16f77f6f6833963ea1f7c12e3083`, bằng cây gốc.
-- Mã triển khai/kiểm thử trước khi sinh bằng chứng: commit `f4c1ec2` (`f4c1ec269ebe629fcba2ea66c889906cd031c11f`);
-  hash đầy đủ ghi trong `reports/analysis_evidence.json`.
+- Mã grader hoàn chỉnh: commit `f4c1ec269ebe629fcba2ea66c889906cd031c11f`; commit của lần
+  chạy lại bằng chứng ghi trong `reports/analysis_evidence.json.code_commit`.
 - Công cụ AI: **Codex** đọc đề, triển khai TODO, viết test, chạy lệnh và soạn tài liệu dựa trên
   output thật. Không tuyên bố học viên đã tự review hay có phê duyệt Product. Học viên cần
   đọc và giải thích được các quyết định trước khi trình bày bài.
@@ -37,7 +37,12 @@ python -m lab9.evalset --build --check
 python -m lab9.evalset --v2 --build
 ```
 
-`.gitattributes` giữ LF cho eval set để SHA không đổi giữa Windows và Linux.
+`evalset.build/build_v2` ghi `newline="\n"`, cùng `.gitattributes` giữ LF cho JSONL.
+Chỉ dùng `.gitattributes` chưa đủ: Python trên Windows mặc định ghi CRLF trước khi Git đổi
+thành LF, khiến SHA lúc build khác SHA sau checkout. Test
+`test_evalset_rebuild_matches_committed_bytes_on_every_platform` bắt lỗi này.
+Baseline đã được sinh lại trên LF: v1 `1f7a07daed29`, v2 `21cd831d343d`; không thay item,
+nhãn hoặc ngưỡng. Hash cũ CRLF trong PR #1 không còn là baseline hiện hành.
 Không chạy song song các eval trên cùng thư mục vì chúng ghi chung `traces/`.
 
 ## Phạm vi kiểm chứng

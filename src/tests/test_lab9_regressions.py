@@ -49,6 +49,37 @@ def test_c002_first_wrong_step_and_fixed_control():
         assert RefundAmountCorrect().evaluate(ctx).value is expected
 
 
+def test_c013_zero_ledger_does_not_hide_pre_deduction():
+    from lab9.trace_case import investigate
+    from lab9.graders import ProposalAmountCorrect, RefundAmountCorrect
+    for shape, expected in (("seeded_regression", False), ("fixed", True)):
+        case = investigate(shape, "C-013", 11)
+        ctx = SimpleNamespace(output=case["trial"], expected_output=case["label"])
+        assert case["trial"]["snapshot"]["refund_vnd"] == 0
+        assert RefundAmountCorrect().evaluate(ctx).value is True
+        assert ProposalAmountCorrect().evaluate(ctx).value is expected
+
+
+def test_evalset_rebuild_matches_committed_bytes_on_every_platform(tmp_path, monkeypatch):
+    """CRLF produced by Windows must not change the SHA after Git checkout on Linux."""
+    from pathlib import Path
+    import shutil
+    from lab9 import evalset
+
+    original = Path.cwd()
+    expected = {p: p.read_bytes() for p in (evalset.ITEMS, evalset.ITEMS_V2)}
+    for source in (evalset.SOURCE, evalset.PACK, evalset.FM_MAP):
+        target = tmp_path / source
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(original / source, target)
+    monkeypatch.chdir(tmp_path)
+    evalset.build()
+    evalset.build_v2()
+    for path, content in expected.items():
+        assert b"\r\n" not in path.read_bytes()
+        assert path.read_bytes() == content
+
+
 @pytest.mark.parametrize("bugs,claim,metric,correct", [
     ({"no_override", "misreport"}, "C-008", "reply_amount_correct", False),
     ({"no_override", "misreport"}, "C-014", "reply_amount_correct", False),

@@ -1,5 +1,12 @@
 # K5 · Day 9 · Lab — Evaluation & Failure Analysis (LogiX-VN)
 
+**Bài nộp Lê Quốc Khánh — 2A202603742 — L3B.**
+Xem [eval card](docs/eval_card.md), [PRD v1.1](docs/PRD_v1.1.md),
+[taxonomy](docs/failure_taxonomy.md), [trace case](docs/trace_case.md),
+[judge audit](docs/judge_audit.md) và [hướng dẫn tái lập](docs/reproduction.md).
+Kiểm lại toàn bộ từ `src/`: `python scripts/verify_day9.py`.
+Các mục dưới đây giữ nguyên đề bài và quy trình nộp của giảng viên.
+
 > Nối tiếp Lab 8. Lab 8 trả lời "agent có chạy không"; Lab 9 trả lời **"làm sao biết bản mới tốt hơn — và chặn được bản tệ trước khi merge"**.
 > Không cần API key: MockLLM + judge replay. **Không Langfuse / OTel** (observability học ở Day 14).
 
