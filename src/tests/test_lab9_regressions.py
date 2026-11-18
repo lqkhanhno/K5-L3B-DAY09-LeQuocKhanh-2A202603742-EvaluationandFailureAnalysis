@@ -49,6 +49,17 @@ def test_c002_first_wrong_step_and_fixed_control():
         assert RefundAmountCorrect().evaluate(ctx).value is expected
 
 
+def test_c013_zero_ledger_does_not_hide_pre_deduction():
+    from lab9.trace_case import investigate
+    from lab9.graders import ProposalAmountCorrect, RefundAmountCorrect
+    for shape, expected in (("seeded_regression", False), ("fixed", True)):
+        case = investigate(shape, "C-013", 11)
+        ctx = SimpleNamespace(output=case["trial"], expected_output=case["label"])
+        assert case["trial"]["snapshot"]["refund_vnd"] == 0
+        assert RefundAmountCorrect().evaluate(ctx).value is True
+        assert ProposalAmountCorrect().evaluate(ctx).value is expected
+
+
 @pytest.mark.parametrize("bugs,claim,metric,correct", [
     ({"no_override", "misreport"}, "C-008", "reply_amount_correct", False),
     ({"no_override", "misreport"}, "C-014", "reply_amount_correct", False),
